@@ -1,5 +1,6 @@
 const express =require("express")
 const router=express.Router()
+const bcrypt = require("bcryptjs")
 const Patient =require("../models/Patient")
 
 router.post("/addpatient",async (req,res)=>{
@@ -13,4 +14,21 @@ router.post("/addpatient",async (req,res)=>{
     await newPatient.save()
     res.status(201).json({"message":"patient created successfully"})
 })
+
+router.post("/login",async (req,res)=>{
+    const {email,password}=req.body
+    console.log("from login route",email,password)
+    const patient=await Patient.findOne({email})
+    console.log(patient)
+    if(!patient)
+        return res.status(404).json({"message":"User not found"})
+    const isMatch= await bcrypt.compare(password,patient.password)
+    if(!isMatch)
+        return res.status(400).json({"message":"Incorrect password"})
+    return res.status(200).json({
+        "message":"Valid user",
+        "patientid":patient._id
+    })
+})
+
 module.exports=router
