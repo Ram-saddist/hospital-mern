@@ -9,7 +9,7 @@ export default function Navigation() {
     navigate("/")
   }
   return (
-    <div>
+    <>
       {
         patientId?(
           <div className='navbar'>
@@ -24,14 +24,6 @@ export default function Navigation() {
           </div>
         )
       }
-
-
-
-
-
-
-      
-      
-    </div>
+    </>
   )
 }
