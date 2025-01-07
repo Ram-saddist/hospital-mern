@@ -1,5 +1,5 @@
 .navbar{
-    background-color: aquamarine;
+    background-color: rgb(169, 176, 174);
     display: flex;
     justify-content: space-evenly;
     
@@ -9,4 +9,9 @@
     font-weight: bold;
     padding: 10px;
     color: black;
+}
+
+.navbar a:hover{
+    color:white;
+    text-decoration: underline;
 }
