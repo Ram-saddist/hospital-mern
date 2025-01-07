@@ -9,6 +9,7 @@ export default function Home() {
     async function fetchDoctors(){
         await axios.get("http://localhost:4000/api/patients/doctors")
             .then((res)=>{
+                console.log(res.data)
                 setDoctors(res.doctors)
             })
             .catch((e)=>{

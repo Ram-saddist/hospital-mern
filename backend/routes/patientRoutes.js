@@ -45,6 +45,4 @@ router.get("/doctors",async (req,res)=>{
     return res.status(200).json(doctorsInfo)
 })
 
-
-
 module.exports=router
