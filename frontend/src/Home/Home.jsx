@@ -7,7 +7,7 @@ export default function Home() {
         fetchDoctors()
     }, [])
     async function fetchDoctors() {
-        await axios.get("http://localhost:4000/api/patients/doctors")
+        await axios.get("http://localhost:4000/api/doctors")
             .then((res) => {
                 console.log(res.data)
                 setDoctors(res.data)

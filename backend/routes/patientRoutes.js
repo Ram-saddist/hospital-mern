@@ -19,7 +19,7 @@ router.post("/login",async (req,res)=>{
     const {email,password}=req.body
     console.log("from login route",email,password)
     const patient=await Patient.findOne({email})
-    console.log(patient)
+    //console.log(patient)
     if(!patient)
         return res.status(404).json({"message":"User not found"})
     const isMatch= await bcrypt.compare(password,patient.password)
