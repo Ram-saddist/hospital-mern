@@ -3,9 +3,25 @@ import axios from 'axios'
 
 export default function Home() {
     const [doctors, setDoctors] = useState([])
+    const [selectedDoctorId, setSelectedDoctorId] = useState(null)
+    const [appointmentDate, setAppointmentDate] = useState(null)
+    const [appointmentTime, setAppointmentTime] = useState('')
+    const patientId = localStorage.getItem("patientId")
     useEffect(() => {
         fetchDoctors()
     }, [])
+    function handleSubmit(e) {
+        e.preventDefault()
+        alert()
+        const newAppointment = {
+            patientId: patientId, doctorId: selectedDoctorId, date: appointmentDate, time: appointmentTime
+        }
+        console.log(newAppointment)
+        axios.post("http://localhost:4000/api/appoinments/add", newAppointment)
+            .then((res) => {
+                console.log(res)
+            })
+    }
     async function fetchDoctors() {
         await axios.get("http://localhost:4000/api/doctors")
             .then((res) => {
@@ -30,12 +46,55 @@ export default function Home() {
                                 <p className="card-text">{doctorItem.designation}</p>
                             </div>
                             <div className="card-footer text-body-secondary">
-                                    <p className="btn btn-primary">Book Appointment</p>
-                                </div>
+                                <button onClick={() => {
+                                    setSelectedDoctorId(doctorItem._id)
+
+                                }} className="btn btn-primary">Book Appointment</button>
+                            </div>
                         </div>
                     })
                 }
             </div>
+            {console.log(selectedDoctorId)}
+            {
+                selectedDoctorId && <div className="modal show d-block" id="exampleModal" tabIndex="-1" role="modal">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h1 className="modal-title fs-5" id="exampleModalLabel">Appointment Details</h1>
+                                <button onClick={() => setSelectedDoctorId(null)} type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div className="modal-body">
+                                <form onSubmit={handleSubmit}>
+                                    <div className="mb-3">
+                                        <label htmlFor="recipient-name" className="col-form-label">Appointment Date:</label>
+                                        <input
+                                            type="date"
+                                            className="form-control"
+                                            id="recipient-name"
+                                            onChange={(e) => setAppointmentDate(e.target.value)}
+                                        />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="recipient-time" className="col-form-label">Appointment Time:</label>
+                                        <input
+                                            type="time"
+                                            className="form-control"
+                                            id="recipient-time"
+                                            onChange={(e) => setAppointmentTime(e.target.value)} />
+                                    </div>
+                                    <div className="modal-footer">
+                                        <button onClick={() => setSelectedDoctorId(null)} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button className="btn btn-success">Confirm Appointment</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+
 
         </div>
     )
