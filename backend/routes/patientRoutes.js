@@ -2,15 +2,7 @@ const express =require("express")
 const router=express.Router()
 const bcrypt = require("bcryptjs")
 const Patient =require("../models/Patient")
-const mongoose =require("mongoose")
-const doctorSchema=new mongoose.Schema({
-    name:String,
-    email:String,
-    designation:String,
-    mobile:String,
-    specialization:String
-})
-const Doctor=mongoose.model("doctors",doctorSchema)
+
 
 router.post("/addpatient",async (req,res)=>{
     const {name,mobile,disease,email,password}=req.body
@@ -37,12 +29,6 @@ router.post("/login",async (req,res)=>{
         "message":"Valid user",
         "patientid":patient._id
     })
-})
-
-router.get("/doctors",async (req,res)=>{
-    const doctorsInfo=await Doctor.find()
-    console.log(doctorsInfo)
-    return res.status(200).json(doctorsInfo)
 })
 
 module.exports=router
