@@ -23,7 +23,7 @@ app.use(cors())
 app.use("/api/patients", patientRoutes)
 
 app.use("/api/doctors", doctorRoutes)
-app.use("/api/appoinments",appointmentRoutes)
+app.use("/api/appointments",appointmentRoutes)
 
 app.get("/", (req, res) => {
     return res.json({ "message": "server is running successfully" })

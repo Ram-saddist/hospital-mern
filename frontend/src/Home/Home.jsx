@@ -17,7 +17,7 @@ export default function Home() {
             patientId: patientId, doctorId: selectedDoctorId, date: appointmentDate, time: appointmentTime
         }
         console.log(newAppointment)
-        axios.post("http://localhost:4000/api/appoinments/add", newAppointment)
+        axios.post("http://localhost:4000/api/appointments/add", newAppointment)
             .then((res) => {
                 console.log(res)
             })
