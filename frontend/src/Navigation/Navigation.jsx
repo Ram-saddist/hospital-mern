@@ -8,7 +8,7 @@ export default function Navigation() {
   const navigate = useNavigate()
   function logout() {
     localStorage.removeItem("patientId")
-
+    localStorage.removeItem("isAdmin")
     navigate("/")
   }
   return isAdmin == "admin" ? (

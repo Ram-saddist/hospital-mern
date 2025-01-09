@@ -4,7 +4,7 @@ const Doctor =require("../models/doctorModel")
 
 router.get("/",async (req,res)=>{
     const doctorsInfo=await Doctor.find()
-    console.log(doctorsInfo)
+    //console.log(doctorsInfo)
     return res.status(200).json(doctorsInfo)
 })
 
