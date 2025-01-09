@@ -6,7 +6,7 @@ const Patient =require("../models/Patient")
 
 router.post("/addpatient",async (req,res)=>{
     const {name,mobile,disease,email,password}=req.body
-    console.log(name,email,password,mobile,disease)
+    //console.log(name,email,password,mobile,disease)
     const existingPatient=await Patient.findOne({email})
     if(existingPatient){
         return res.status(400).json({"message":"User already exists"})
@@ -17,7 +17,7 @@ router.post("/addpatient",async (req,res)=>{
 })
 router.post("/login",async (req,res)=>{
     const {email,password}=req.body
-    console.log("from login route",email,password)
+    //console.log("from login route",email,password)
     const patient=await Patient.findOne({email})
     //console.log(patient)
     if(email==="admin" && password==="admin1@"){

@@ -11,6 +11,7 @@ export default function ManageAppointments() {
             .then((res) => {
                 if (res.status === 204)
                     alert("Confirmed")
+                fetchAppointments()
             })
     }
     async function handleCancel(id) {
@@ -18,6 +19,7 @@ export default function ManageAppointments() {
             .then((res) => {
                 if (res.status === 204)
                     alert("Cancelled")
+                fetchAppointments()
             })
     }
     async function fetchAppointments() {
