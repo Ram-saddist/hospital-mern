@@ -14,11 +14,11 @@ export default function Login() {
                 if(res.status===200){
                     alert("Login Successful")
                     if(res.data.isAdmin){
-                        localStorage.setItem("isAdmin",true)
+                        localStorage.setItem("isAdmin","admin")
                         navigate("/")
                     }
                     else{
-                        localStorage.setItem("isAdmin",false)
+                        localStorage.setItem("isAdmin","patient")
                         localStorage.setItem("patientId",res.data.patientid)
                         navigate("/")
                     }
