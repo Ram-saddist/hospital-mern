@@ -13,8 +13,15 @@ export default function Login() {
                 console.log(res)
                 if(res.status===200){
                     alert("Login Successful")
-                    localStorage.setItem("patientId",res.data.patientid)
-                    navigate("/")
+                    if(res.data.isAdmin){
+                        localStorage.setItem("isAdmin",true)
+                        navigate("/")
+                    }
+                    else{
+                        localStorage.setItem("isAdmin",false)
+                        localStorage.setItem("patientId",res.data.patientid)
+                        navigate("/")
+                    }
                 }
             })
             .catch((error)=>{
@@ -33,7 +40,7 @@ export default function Login() {
                 <form className='col-5' onSubmit={loginForm}>
                     <div className="mb-3">
                         <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
-                        <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" onChange={(e)=>setEmail(e.target.value)}/>
+                        <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" onChange={(e)=>setEmail(e.target.value)}/>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="exampleInputPassword1" className="form-label">Password</label>

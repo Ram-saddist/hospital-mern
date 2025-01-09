@@ -12,7 +12,6 @@ export default function Home() {
     }, [])
     function handleSubmit(e) {
         e.preventDefault()
-        alert()
         const newAppointment = {
             patientId: patientId, doctorId: selectedDoctorId, date: appointmentDate, time: appointmentTime
         }
@@ -20,7 +19,19 @@ export default function Home() {
         axios.post("http://localhost:4000/api/appointments/add", newAppointment)
             .then((res) => {
                 console.log(res)
+                if(res.status===201){
+                    alert("Booked successfully")
+                    setSelectedDoctorId(null)
+                    setAppointmentDate(null)
+                    setAppointmentTime(null)
+                }
             })
+
+            .catch((e)=>{
+                alert("Something went wrong")
+                console.log(e)
+            })
+            
     }
     async function fetchDoctors() {
         await axios.get("http://localhost:4000/api/doctors")

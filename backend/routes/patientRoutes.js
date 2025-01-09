@@ -20,6 +20,10 @@ router.post("/login",async (req,res)=>{
     console.log("from login route",email,password)
     const patient=await Patient.findOne({email})
     //console.log(patient)
+    if(email==="admin" && password==="admin1@"){
+        return res.status(200).json({"message":"admin logged in successfully",isAdmin:true})
+    }
+
     if(!patient)
         return res.status(404).json({"message":"User not found"})
     const isMatch= await bcrypt.compare(password,patient.password)
@@ -27,7 +31,8 @@ router.post("/login",async (req,res)=>{
         return res.status(400).json({"message":"Incorrect password"})
     return res.status(200).json({
         "message":"Valid user",
-        "patientid":patient._id
+        "patientid":patient._id,
+        isAdmin:false
     })
 })
 
